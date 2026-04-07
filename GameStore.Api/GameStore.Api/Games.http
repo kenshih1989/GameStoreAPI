@@ -1,0 +1,36 @@
+### get all games
+GET http://localhost:5296/games
+
+### get a game where id is 1
+GET  http://localhost:5296/games/1
+
+### get a game where id is 2
+GET  http://localhost:5296/games/2
+
+### get a game where id is 3
+GET  http://localhost:5296/games/3
+
+### create a new game
+POST http://localhost:5296/games
+Content-Type: application/json
+
+{
+    "name": "Super Mario 3D World",
+    "genre": "Platformer",
+    "price": 45.99,
+    "releaseDate": "2021-02-12"
+}
+
+### update a game where id is 1
+PUT http://localhost:5296/games/1
+Content-Type: application/json
+
+{
+    "name": "The Legend of Zelda: Breath of the Wild 3",
+    "genre": "Action-Adventure",
+    "price": 89.99,
+    "releaseDate": "2019-03-03"
+}
+
+### Delete a game where id is 2
+DELETE  http://localhost:5296/games/2
