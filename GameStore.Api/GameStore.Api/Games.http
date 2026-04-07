@@ -4,12 +4,6 @@ GET http://localhost:5296/games
 ### get a game where id is 1
 GET  http://localhost:5296/games/1
 
-### get a game where id is 2
-GET  http://localhost:5296/games/2
-
-### get a game where id is 3
-GET  http://localhost:5296/games/3
-
 ### create a new game
 POST http://localhost:5296/games
 Content-Type: application/json
