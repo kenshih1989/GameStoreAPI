@@ -1,4 +1,6 @@
+using GameStore.Api.Data;
 using GameStore.Api.Dtos;
+using GameStore.Api.Models;
 
 namespace GameStore.Api.Endpoints;
 
@@ -31,19 +33,28 @@ public static class GamesEndpoints
         #endregion
 
         #region Create new game
-        group.MapPost("/", (CreateGameDto createGameDto) =>
+        group.MapPost("/", (CreateGameDto createGameDto, GameStoreContext dbContext) =>
         {
-            var newGame = new GameDto(
-                Id: games.Max(g => g.Id) + 1,
-                Name: createGameDto.Name,
-                Genre: createGameDto.Genre,
-                Price: createGameDto.Price,
-                ReleaseDate: createGameDto.ReleaseDate
-            );
+            Game game = new()
+            {
+                Name = createGameDto.Name,
+                GenreId = createGameDto.GenreId,
+                Price = createGameDto.Price,
+                ReleaseDate = createGameDto.ReleaseDate
+            };
 
-            games.Add(newGame);
-            // return Results.Created($"/games/{newGame.Id}", newGame);
-            return Results.CreatedAtRoute(GetGameEndpointname, new { id = newGame.Id }, newGame);
+            dbContext.Games.Add(game);
+            dbContext.SaveChanges();
+
+            GameDetailsDto gameDetailsDto = new(
+                game.Id,
+                game.Name,
+                game.GenreId,
+                game.Price,
+                game.ReleaseDate
+                );
+
+            return Results.CreatedAtRoute(GetGameEndpointname, new { id = gameDetailsDto.Id }, gameDetailsDto);
         });
         #endregion
 

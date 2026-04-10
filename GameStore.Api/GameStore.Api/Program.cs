@@ -5,10 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddValidation();
 
-var connectionString = "DataSource=GameStore.db";
-builder.Services.AddSqlite<GameStoreContext>(connectionString);
+builder.AddGameStoreDbContext();
 
-// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 var app = builder.Build();
 
 app.MapGamesEndpoints();
