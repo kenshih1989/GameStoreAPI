@@ -21,19 +21,19 @@ public static class GamesEndpoints
         var group = app.MapGroup("/games");
 
         #region Get all games and sort by id
-        // group.MapGet("/", async (GameStoreContext dbContext) => await dbContext.Games.OrderBy(g => g.Id).ToListAsync());
-        group.MapGet("/", async (GameStoreContext dbContext) => await dbContext.Games
-                                                                                .Include(game => game.Genre)
-                                                                                .Select(game => new GameSummaryDto(
-                                                                                    game.Id,
-                                                                                    game.Name,
-                                                                                    game.Genre!.Name,
-                                                                                    game.Price,
-                                                                                    game.ReleaseDate
-                                                                                ))
-                                                                                .OrderBy(g => g.Id)
-                                                                                .AsNoTracking()
-                                                                                .ToListAsync());
+        group.MapGet("/", async (GameStoreContext dbContext)
+            => await dbContext.Games
+                            .Include(game => game.Genre)
+                            .OrderBy(game => game.Id)
+                            .Select(game => new GameSummaryDto(
+                                game.Id,
+                                game.Name,
+                                game.Genre!.Name,
+                                game.Price,
+                                game.ReleaseDate
+                            ))
+                            .AsNoTracking()
+                            .ToListAsync());
         #endregion
 
         #region Get game by id

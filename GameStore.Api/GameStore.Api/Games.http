@@ -28,3 +28,6 @@ Content-Type: application/json
 
 ### Delete a game where id is 2
 DELETE  http://localhost:5296/games/2
+
+### Get all genres
+GET http://localhost:5296/genres
